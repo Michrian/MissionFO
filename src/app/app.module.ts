@@ -14,6 +14,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
@@ -21,6 +22,8 @@ import {MatIconModule} from '@angular/material/icon';
 
 import { MissionPagesComponent } from './mission-pages/mission-pages.component';
 import { MenuComponent } from './menu/menu.component';
+
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { Routes, RouterModule } from '@angular/router';
@@ -46,12 +49,13 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot(
      appRoutes,
       { enableTracing: false } // <-- debugging purposes only
     ),
     BrowserAnimationsModule,
-    MatRippleModule, MatSidenavModule, MatListModule,
+    MatRippleModule, MatSidenavModule, MatListModule, MatButtonModule,
     MatSliderModule, MatFormFieldModule, MatSelectModule, MatSlideToggleModule, MatTabsModule
     , MatInputModule, MatToolbarModule, MatCardModule, MatIconModule
   ],

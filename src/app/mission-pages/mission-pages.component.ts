@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-mission-pages',
@@ -12,4 +13,7 @@ export class MissionPagesComponent implements OnInit {
   ngOnInit() {
   }
 
+  btnAjoutMission(){
+    alert("test");
+  }
 }

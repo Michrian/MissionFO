@@ -9,24 +9,26 @@
         <form class="example-form">
           <mat-form-field class="example-full-width">
             <mat-label>Nom de la mission</mat-label>
-            <input matInput placeholder="M-Maroantsetra" >
+            <input matInput (ngModel)="nommission" placeholder="M-Maroantsetra" >
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Lieux</mat-label>
-            <input matInput placeholder="Ambositra">
+            <input matInput (ngModel)="lieux" placeholder="Ambositra">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Tache</mat-label>
+            <input matInput  (ngModel)="tache" placeholder="Radio" >
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Tache</mat-label>
             <input matInput placeholder="Radio" >
           </mat-form-field>
-          
-          <mat-form-field class="example-full-width">
-            <mat-label>Tache</mat-label>
-            <input matInput placeholder="Radio" >
-          </mat-form-field>
 
+
+          <button mat-button (click)="btnAjoutMission()">+ AJOUTER</button>
         </form>
 
       </mat-tab>
