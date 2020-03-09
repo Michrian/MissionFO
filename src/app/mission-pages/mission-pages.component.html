@@ -35,7 +35,12 @@
       <!--###################################################-->
       <mat-tab label="Voir les missions"> 
         
-      
+        <h2>Liste Mission</h2>
+
+        <ul *ngFor="let miss of mission$">
+           <li>{{ miss.nommission }}</li>
+           <li>{{ miss.lieux }}</li>
+        </ul>
       
       </mat-tab>
     </mat-tab-group>

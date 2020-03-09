@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { MissionService } from '../mission.service';
+import {IMission} from '../IMission';
 
 @Component({
   selector: 'app-mission-pages',
@@ -7,13 +10,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./mission-pages.component.css']
 })
 export class MissionPagesComponent implements OnInit {
-
-  constructor() { }
+protected mission$: Observable<IMission[]>;
+  constructor(public missionService: MissionService) { }
 
   ngOnInit() {
+    this.missionService.getAllMissions().subscribe(res => {
+      this.mission$ = res;
+    });
   }
 
-  btnAjoutMission(){
-    alert("test");
-  }
+ /* btnAjoutMission() {
+
+  }*/
 }
