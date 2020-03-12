@@ -5,43 +5,170 @@
     <mat-tab-group>
       <mat-tab label="Ajouter un mission">
 
-        <br>
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <mat-label>Nom de la mission</mat-label>
-            <input matInput (ngModel)="nommission" placeholder="M-Maroantsetra" >
-          </mat-form-field>
+        <form [formGroup]="addForm" novalidate>
+          <br>
+          <p>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Nom de la mission</mat-label>
+              <input matInput formControlName="nom_mission" name="nom_mission"  placeholder="Nom de la mission" #nom_mission>
+              <mat-hint>
 
-          <mat-form-field class="example-full-width">
-            <mat-label>Lieux</mat-label>
-            <input matInput (ngModel)="lieux" placeholder="Ambositra">
-          </mat-form-field>
+                <div
+                  *ngIf="addForm.controls['nom_mission'].invalid && (addForm.controls['nom_mission'].dirty || addForm.controls['nom_mission'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="addForm.controls['nom_mission'].errors.required">
+                    * Nom de la mission obligatoire
+                  </div>
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </p>
 
-          <mat-form-field class="example-full-width">
-            <mat-label>Tache</mat-label>
-            <input matInput  (ngModel)="tache" placeholder="Radio" >
-          </mat-form-field>
+          <p>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Lieux</mat-label>
+              <input matInput formControlName="lieux" placeholder="Lieux" #lieux>
+              <mat-hint>
+                <div
+                  *ngIf="addForm.controls['lieux'].invalid && (addForm.controls['lieux'].dirty || addForm.controls['lieux'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="addForm.controls['lieux'].errors.required">
+                    * Lieux obligatoire
+                  </div>
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </p>
 
-          <mat-form-field class="example-full-width">
-            <mat-label>Tache</mat-label>
-            <input matInput placeholder="Radio" >
-          </mat-form-field>
+
+          <p>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Tache</mat-label>
+              <input matInput formControlName="tache" placeholder="Tache" #lieux>
+              <mat-hint>
+                <div
+                  *ngIf="addForm.controls['tache'].invalid && (addForm.controls['tache'].dirty || addForm.controls['tache'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="addForm.controls['tache'].errors.required">
+                    * Tache obligatoire
+                  </div>
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </p>
+        
+          <p>
+            <mat-form-field color="accent" appearance="outline">
+              <mat-label>Date Debut</mat-label>
+              <input matInput [formControl]="DateInitial" [matDatepicker]="date_debut" >
+              <mat-datepicker-toggle matSuffix [for]="date_debut"></mat-datepicker-toggle>
+              <mat-datepicker   #date_debut></mat-datepicker>
+            </mat-form-field>
 
 
-          <button mat-button (click)="btnAjoutMission()">+ AJOUTER</button>
+            <mat-form-field color="accent" appearance="outline">
+              <mat-label>Date Fin</mat-label>
+              <input matInput [formControl]="DateInitial" [matDatepicker]="date_fin" >
+              <mat-datepicker-toggle matSuffix [for]="date_fin"></mat-datepicker-toggle>
+              <mat-datepicker     #date_fin></mat-datepicker>
+            </mat-form-field>
+          </p>
+        
+          {{formattedDate}}
+          <p>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description" placeholder="Description" #description></textarea>
+              <mat-hint>
+                <div
+                  *ngIf="addForm.controls['description'].invalid && (addForm.controls['description'].dirty || addForm.controls['description'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="addForm.controls['description'].errors.required">
+                    * Nom de la mission obligatoire
+                  </div>
+                </div>
+              </mat-hint>
+            </mat-form-field>
+          </p>
+
+      
+          <button type="submit"  class="btn btn-primary" [disabled]="addForm.pristine || addForm.invalid"
+            (click)="onClickSubmit(nom_mission.value,lieux.value,description.value,tache.value,DateInitial,DateInitial)">
+            Nouveau Mission
+          </button>
+
+          <button type="submit" class="btn btn-primary" [disabled]="addForm.pristine || addForm.invalid"
+          (click)="updateForm(nom_mission.value,lieux.value,description.value,tache.value,DateInitial,DateInitial)">
+          Modifier Mission
+        </button>
+
         </form>
+
+
+        <h2>Liste Mission</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Editer</th>
+              <th>Supprimer</th>
+              <th>ID</th>
+              <th>Mission</th>
+              <th>Lieux</th>
+              <th>TACHE</th>
+              <th>Description</th>
+              <th>DATE DEBUT</th>
+              <th>DATE FIN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let miss of mission$">
+              <td>
+                <button mat-raised-button color="primary" (click)="editerMission(miss.id)">Editer</button>
+                </td>
+              <td>
+                <button mat-raised-button color="accent" (click)="SupprimerMission(miss.id)">Supprimer</button> </td>
+              <td>{{ miss.id }}</td>
+              <td>{{ miss.nommission }}</td>
+              <td>{{ miss.lieux }}</td>
+              <td>{{ miss.tache }}</td>
+              <td>{{ miss.description }}</td>
+              <td>{{ miss.date_debut | date: "dd:MMM:yyyy hh-mm-ss" }}</td>
+              <td>{{ miss.date_fin | date: "dd:MMM:yyyy hh-mm-ss" }}</td>
+            </tr>
+          </tbody>
+        </table>
 
       </mat-tab>
       <!--###################################################-->
-      <mat-tab label="Voir les missions"> 
-        
+      <mat-tab label="Voir les missions">
+
         <h2>Liste Mission</h2>
 
-        <ul *ngFor="let miss of mission$">
-           <li>{{ miss.nommission }}</li>
-           <li>{{ miss.lieux }}</li>
-        </ul>
-      
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Mission</th>
+              <th>Lieux</th>
+              <th>TACHE</th>
+              <th>Description</th>
+              <th>DATE DEBUT</th>
+              <th>DATE FIN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let miss of mission$">
+              <td>{{ miss.id }}</td>
+              <td>{{ miss.nommission }}</td>
+              <td>{{ miss.lieux }}</td>
+              <td>{{ miss.tache }}</td>
+              <td>{{ miss.description }}</td>
+              <td>{{ miss.date_debut | date: "dd:MMM:yyyy hh-mm-ss" }}</td>
+              <td>{{ miss.date_fin | date: "dd:MMM:yyyy hh-mm-ss" }}</td>
+            </tr>
+          </tbody>
+        </table>
       </mat-tab>
     </mat-tab-group>
 

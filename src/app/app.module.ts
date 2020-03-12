@@ -16,6 +16,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
@@ -30,6 +33,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PersonnelComponent } from './personnel/personnel.component';
 import { PagerreurComponent } from './pagerreur/pagerreur.component';
 
+import {ReactiveFormsModule} from '@angular/forms';
 const appRoutes: Routes = [
   { path: 'mission', component: MissionPagesComponent },
   { path: 'personnel', component: PersonnelComponent },
@@ -50,6 +54,7 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(
      appRoutes,
       { enableTracing: false } // <-- debugging purposes only
@@ -57,7 +62,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MatRippleModule, MatSidenavModule, MatListModule, MatButtonModule,
     MatSliderModule, MatFormFieldModule, MatSelectModule, MatSlideToggleModule, MatTabsModule
-    , MatInputModule, MatToolbarModule, MatCardModule, MatIconModule
+    , MatInputModule, MatToolbarModule, MatCardModule, MatIconModule , MatDatepickerModule, MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
